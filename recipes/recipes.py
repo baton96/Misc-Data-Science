@@ -40,6 +40,7 @@ class CustomClassifier(BaseEstimator, ClassifierMixin):
 
 
 df = pd.read_csv('recipes.csv')
+# print(df.isna().sum())
 df = df.fillna(0)
 df.loc[df.skill_level != 'Easy', 'skill_level'] = 'Not easy'
 X, y = df.drop('skill_level', axis=1), df.skill_level
@@ -51,19 +52,13 @@ clf = make_pipeline(
     FunctionTransformer(lambda x: x.todense()),
     BalancedRandomForestClassifier(n_jobs=-1, random_state=1)
 )
-print(
-    "[Text] Balanced accuracy:%f" %
-    cross_val_score(clf, X_text, y, scoring='balanced_accuracy').mean()
-)
+score = cross_val_score(clf, X_text, y, scoring='balanced_accuracy').mean()
+print(f"[Text] Balanced accuracy:{score:f}")
 
 clf = BalancedRandomForestClassifier(n_jobs=1, random_state=1)
-print(
-    "[Tabular] Balanced accuracy:%f" %
-    cross_val_score(clf, X_tab, y, scoring='balanced_accuracy').mean()
-)
+score = cross_val_score(clf, X_tab, y, scoring='balanced_accuracy').mean()
+print(f"[Tabular] Balanced accuracy:{score:f}")
 
 clf = CustomClassifier()
-print(
-    "[Both] Balanced accuracy:%f" %
-    cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
-)
+score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
+print(f"[Both] Balanced accuracy:{score:f}")

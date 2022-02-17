@@ -13,7 +13,7 @@ with open('recipes.json', 'r') as f:
         for nutrient_amount in _recipe['nutrition_info']:
             nutrient, amount = nutrient_amount.split(' ')
             recipe[nutrient.lower()] = amount.rstrip('g')
-        recipe.setdefault('sugar', 0)
+        recipe.setdefault('sugar', None)
         recipe['ingredients'] = ' '.join(_recipe['ingredients']).replace(',', '')
         recipes.append(recipe)
 
