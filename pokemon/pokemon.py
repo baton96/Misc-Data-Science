@@ -1,20 +1,17 @@
 import warnings
 
-import numpy as np
 import pandas as pd
-from imblearn.pipeline import make_pipeline
-from sklearn.base import BaseEstimator, ClassifierMixin
+from imblearn.ensemble import BalancedRandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import LabelEncoder, FunctionTransformer
-from imblearn.ensemble import BalancedRandomForestClassifier
 from sklearn.svm import LinearSVC
 
 warnings.filterwarnings("ignore")
 
 df = pd.read_csv('pokemon.csv')
-for target in []:#['legendary', 'type1']:
+for target in []:  # ['legendary', 'type1']:
     if target == 'legendary':
         X, y = df.drop(['name', 'legendary'], axis=1), df.legendary
         encoder = LabelEncoder()
