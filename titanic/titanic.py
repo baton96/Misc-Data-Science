@@ -3,7 +3,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.model_selection import cross_val_score, KFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.semi_supervised import LabelPropagation, LabelSpreading
 
 
 def test_n_save(name, model):
@@ -15,9 +14,6 @@ def test_n_save(name, model):
     predictions = pipeline.predict(test)
     acc = sum(s == p for s, p in zip(survived, predictions)) / len(predictions)
     print(name, "Real accuracy: %f" % acc)
-
-    # output = pd.DataFrame({'PassengerId': testId, 'Survived': predictions})
-    # output.to_csv(name + '.csv', index=False)
 
 
 train = pd.read_csv("train.csv")
@@ -78,6 +74,3 @@ test = pd.DataFrame()
 for col in data.columns:
     train[col] = data[col][:891]
     test[col] = data[col][891:]
-
-test_n_save('LabelPropagation', LabelPropagation('knn', n_neighbors=10, n_jobs=-1))
-test_n_save('LabelSpreading', LabelSpreading('knn', n_neighbors=10, n_jobs=-1))

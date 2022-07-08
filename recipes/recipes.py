@@ -53,12 +53,12 @@ clf = make_pipeline(
     BalancedRandomForestClassifier(n_jobs=-1, random_state=1)
 )
 score = cross_val_score(clf, X_text, y, scoring='balanced_accuracy').mean()
-print(f"[Text] Balanced accuracy:{score:f}")
+print(f"[Text] Balanced accuracy:{score:f}")  # 0.775105
 
 clf = BalancedRandomForestClassifier(n_jobs=1, random_state=1)
 score = cross_val_score(clf, X_tab, y, scoring='balanced_accuracy').mean()
-print(f"[Tabular] Balanced accuracy:{score:f}")
+print(f"[Tabular] Balanced accuracy:{score:f}")  # 0.779340
 
 clf = CustomClassifier()
 score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
-print(f"[Both] Balanced accuracy:{score:f}")
+print(f"[Both] Balanced accuracy:{score:f}")  # 0.813847

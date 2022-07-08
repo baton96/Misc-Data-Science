@@ -1,5 +1,6 @@
 import pandas as pd
 from imblearn.ensemble import BalancedRandomForestClassifier
+from lightgbm import LGBMClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelEncoder
 
@@ -47,4 +48,7 @@ X['s'] = s
 X['v'] = v
 '''
 clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=1)
+print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
+
+clf = LGBMClassifier(is_unbalance=True)
 print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
