@@ -13,7 +13,7 @@ X, y = df.text, df.author
 del df
 
 pipeline = make_pipeline(
-    TfidfVectorizer(analyzer='char_wb', ngram_range=(1, 5), sublinear_tf=True),
+    TfidfVectorizer(analyzer='char_wb', ngram_range=(1, 5), sublinear_tf=True),  # 0.846
     FunctionTransformer(lambda x: x.todense()),
     LinearSVC(),
 )

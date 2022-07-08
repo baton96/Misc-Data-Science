@@ -11,7 +11,7 @@ from sklearn.svm import LinearSVC
 warnings.filterwarnings("ignore")
 
 df = pd.read_csv('pokemon.csv')
-for target in []:  # ['legendary', 'type1']:
+for target in ['legendary', 'type1']:
     if target == 'legendary':
         X, y = df.drop(['name', 'legendary'], axis=1), df.legendary
         encoder = LabelEncoder()
