@@ -3,7 +3,7 @@ import warnings
 import pandas as pd
 from imblearn.ensemble import BalancedRandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import LabelEncoder, FunctionTransformer
 from sklearn.svm import LinearSVC
@@ -19,14 +19,13 @@ for target in ['legendary', 'type1']:
         X.type2 = encoder.fit_transform(X.type2)
         clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=15)
         score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
-        print(f"Target: {target}, balanced accuracy:{score:f}")
+        print(f"Target: {target}, balanced accuracy:{score:f}")  # 0.924910
     elif target == 'type1':
         X, y = df.name, df.type1
-        X_train, X_test, y_train, y_test = train_test_split(X.values, y)
         pipeline = make_pipeline(
             TfidfVectorizer(analyzer='char_wb', ngram_range=(1, 4), smooth_idf=False, sublinear_tf=True),
             FunctionTransformer(lambda x: x.todense()),
             LinearSVC(dual=False)
         )
         score = cross_val_score(pipeline, X, y, scoring='balanced_accuracy').mean()
-        print(f"Target: {target}, balanced accuracy:{score:f}")
+        print(f"Target: {target}, balanced accuracy:{score:f}")  # 0.217263
