@@ -15,4 +15,3 @@ X, y = df.drop(columns=['title', 'artist', 'top genre', 'added', 'artist type'])
 clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=42)
 score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
 print(f"Balanced accuracy:{score:f}")  # 0.606238
-
