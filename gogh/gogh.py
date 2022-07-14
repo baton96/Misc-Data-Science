@@ -47,8 +47,8 @@ X['h'] = h
 X['s'] = s
 X['v'] = v
 '''
-clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=1)
+clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=1)  # 0.893070
 print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
 
-clf = LGBMClassifier(is_unbalance=True)
+clf = LGBMClassifier(is_unbalance=True)  # 0.887598
 print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
