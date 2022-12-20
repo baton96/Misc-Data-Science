@@ -14,9 +14,7 @@ df = pd.read_csv('pokemon.csv')
 for target in ['legendary', 'type1']:
     if target == 'legendary':
         X, y = df.drop(['name', 'legendary'], axis=1), df.legendary
-        encoder = LabelEncoder()
-        X.type1 = encoder.fit_transform(X.type1)
-        X.type2 = encoder.fit_transform(X.type2)
+        X = pd.get_dummies(X, columns=['type1', 'type2'])
         clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=15)
         score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
         print(f"Target: {target}, balanced accuracy:{score:f}")  # 0.924910
