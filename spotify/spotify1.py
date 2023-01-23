@@ -17,4 +17,4 @@ for genre in genres:
 X, y = df.drop(columns=['artist', 'song', 'genre', 'explicit']), df.explicit
 clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=42)
 score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
-print(f"Balanced accuracy:{score:f}")  # 0.752412
+print(f"Balanced accuracy:{score:f}")

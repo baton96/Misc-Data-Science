@@ -1,6 +1,6 @@
 import pandas as pd
 from imblearn.ensemble import BalancedRandomForestClassifier
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, StratifiedShuffleSplit
 
 df = pd.read_csv('spotify2.csv')
 df = df[(df['artist type'] == 'Solo') | (df['artist type'] == 'Band/Group')]
@@ -13,5 +13,11 @@ for genre in ['dance', 'hip hop', 'pop']:
 
 X, y = df.drop(columns=['title', 'artist', 'top genre', 'added', 'artist type']), df['artist type']
 clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=42)
-score = cross_val_score(clf, X, y, scoring='balanced_accuracy').mean()
-print(f"Balanced accuracy:{score:f}")  # 0.606238
+score = cross_val_score(
+    clf,
+    X,
+    y,
+    scoring='balanced_accuracy',
+    cv=StratifiedShuffleSplit(random_state=0)
+).mean()
+print(f"Balanced accuracy:{score:f}")  # 0.681608

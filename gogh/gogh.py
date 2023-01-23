@@ -1,7 +1,6 @@
 import pandas as pd
 from imblearn.ensemble import BalancedRandomForestClassifier
-from lightgbm import LGBMClassifier
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, StratifiedShuffleSplit
 from sklearn.preprocessing import LabelEncoder
 
 
@@ -31,7 +30,7 @@ df = pd.read_csv('gogh.csv')
 df.loc[df.Style != 'Realism', 'Style'] = 'Impressionism'
 for col in ['Year', 'Genre']:
     pass  # print(df[[col, 'Style']].value_counts().sort_index())
-X, y = df.drop(['Name', 'Style'], axis=1), df.Style
+X, y = df.drop(columns=['Name', 'Style']), df.Style
 X.Genre = LabelEncoder().fit_transform(X.Genre)
 X['r/b'] = X.r / X.b
 X['r/g'] = X.r / X.g
@@ -47,8 +46,13 @@ X['h'] = h
 X['s'] = s
 X['v'] = v
 '''
-clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=1)  # 0.893070
-print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
-
-clf = LGBMClassifier(is_unbalance=True)  # 0.887598
-print("Cross-validation accuracy:%f" % cross_val_score(clf, X, y, scoring='balanced_accuracy').mean())
+clf = BalancedRandomForestClassifier(n_jobs=-1, random_state=1)  # 0.953986
+print(
+    "Cross-validation accuracy:%f" % cross_val_score(
+        clf,
+        X,
+        y,
+        scoring='balanced_accuracy',
+        cv=StratifiedShuffleSplit(random_state=0)
+    ).mean()
+)
