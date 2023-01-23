@@ -19,7 +19,7 @@ del df
 pipeline = make_pipeline(
     # TfidfVectorizer(analyzer='char_wb', ngram_range=(1, 5), sublinear_tf=True),  # 0.790919
     TfidfVectorizer(use_idf=False),  # 0.789335
-    FunctionTransformer(lambda x: x.todense()),
+    FunctionTransformer(lambda x: x.toarray()),
     LinearSVC(dual=False),
 )
 print("Cross-validation accuracy:%f" % cross_val_score(pipeline, X, y).mean())

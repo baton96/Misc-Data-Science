@@ -18,7 +18,7 @@ class CustomClassifier(BaseEstimator, ClassifierMixin):
         self.tab_clf = BalancedRandomForestClassifier(n_jobs=n_jobs, random_state=random_state)
         self.text_clf = make_pipeline(
             TfidfVectorizer(),
-            FunctionTransformer(lambda x: x.todense()),
+            FunctionTransformer(lambda x: x.toarray()),
             BalancedRandomForestClassifier(n_jobs=n_jobs, random_state=random_state)
         )
 
@@ -49,7 +49,7 @@ del df
 
 clf = make_pipeline(
     TfidfVectorizer(),
-    FunctionTransformer(lambda x: x.todense()),
+    FunctionTransformer(lambda x: x.toarray()),
     BalancedRandomForestClassifier(n_jobs=-1, random_state=1)
 )
 score = cross_val_score(clf, X_text, y, scoring='balanced_accuracy').mean()
