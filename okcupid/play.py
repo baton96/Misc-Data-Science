@@ -1,8 +1,46 @@
 import pandas as pd
 
-df = pd.read_csv('okcupid.csv')
-print(df.columns)
-print(df.iloc[0])
+okcupid = pd.read_csv('okcupid.csv')
+df = okcupid
+# df = df[df.status == 'single']
+
+
+# To classify: sex, orientation
+# print(df.columns)
+'''
+'age', 'status', 'sex', 'orientation', 'body_type', 'diet', 'drinks',
+'drugs', 'education', 'ethnicity', 'height', 'income', 'job',
+'last_online', 'location', 'offspring', 'pets', 'religion', 'sign',
+'smokes', 'speaks'
+'''
+# print(df.iloc[0])
+# good: age, sex, orientation
+# bad: status, body_type, diet
+
+'''
+age                                                22
+status                                         single
+sex                                                 m
+orientation                                  straight
+body_type                              a little extra
+diet                                strictly anything
+drinks                                       socially
+drugs                                           never
+education               working on college/university
+ethnicity                                asian, white
+height                                           75.0
+income                                             -1
+job                                    transportation
+last_online                          2012-06-28-20-30
+location              south san francisco, california
+offspring      doesn't have kids, but might want them
+pets                        likes dogs and likes cats
+religion        agnosticism and very serious about it
+sign                                           gemini
+smokes                                      sometimes
+speaks                                        english
+'''
+print(df.drinks.value_counts())
 
 # df['is_studying'] = df.education.str.contains('working on ')?
 # df['is_studying'] = df.job == 'student'?
